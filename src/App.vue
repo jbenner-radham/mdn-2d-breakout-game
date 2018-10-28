@@ -11,11 +11,16 @@
             const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             const ballRadius = 10;
+            const paddleHeight = 10;
+            const paddleWidth = 75;
 
             let x = canvas.width / 2;
             let y = canvas.height - 30;
             let dx = 2;
             let dy = -2;
+            let paddleX = (canvas.width - paddleWidth) / 2;
+            let rightPressed = false;
+            let leftPressed = false;
 
             const drawBall = () => {
                 ctx.beginPath();
@@ -25,9 +30,18 @@
                 ctx.closePath();
             }
 
+            const drawPaddle = () => {
+                ctx.beginPath();
+                ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+                ctx.fillStyle = '#0095dd';
+                ctx.fill();
+                ctx.closePath();
+            }
+
             const draw = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 drawBall();
+                drawPaddle();
 
                 if ((x + dx) > (canvas.width - ballRadius) || (x + dx) < ballRadius) {
                     dx = -dx;
@@ -37,9 +51,31 @@
                     dy = -dy;
                 }
 
+                if (rightPressed && paddleX < (canvas.width - paddleWidth)) {
+                    paddleX += 7;
+                } else if (leftPressed && paddleX > 0) {
+                    paddleX -= 7;
+                }
+
                 x += dx;
                 y += dy;
             };
+
+            document.addEventListener('keydown', (event) => {
+                if (event.keyCode === 39) {
+                    rightPressed = true;
+                } else if (event.keyCode === 37) {
+                    leftPressed = true;
+                }
+            }, false);
+
+            document.addEventListener('keyup', (event) => {
+                if (event.keyCode === 39) {
+                    rightPressed = false;
+                } else if (event.keyCode === 37) {
+                    leftPressed = false;
+                }
+            }, false);
 
             setInterval(draw, 10);
         }
