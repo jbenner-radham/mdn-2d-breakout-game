@@ -153,6 +153,14 @@
                 }
             }, false);
 
+            document.addEventListener('mousemove', (event) => {
+                let relativeX = (event.clientX - canvas.offsetLeft);
+
+                if ((relativeX > 0) && (relativeX < canvas.width)) {
+                    paddleX = (relativeX - (paddleWidth / 2));
+                }
+            }, false);
+
             setInterval(draw, 10);
         }
     }
