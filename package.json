@@ -28,7 +28,7 @@
     "pre-commit": "lint-staged"
   },
   "homepage": "https://github.com/jbenner-radham/mdn-2d-breakout-game#readme",
-  "license": "MIT",
+  "license": "CC0-1.0",
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
