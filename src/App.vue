@@ -60,7 +60,7 @@
                         }
                     }
                 }
-            }
+            };
 
             const drawBall = () => {
                 ctx.beginPath();
@@ -68,7 +68,7 @@
                 ctx.fillStyle = '#0095dd';
                 ctx.fill();
                 ctx.closePath();
-            }
+            };
 
             const drawPaddle = () => {
                 ctx.beginPath();
@@ -76,7 +76,7 @@
                 ctx.fillStyle = '#0095dd';
                 ctx.fill();
                 ctx.closePath();
-            }
+            };
 
             const collisionDetection = () => {
                 for (let c = 0; c < brickColumnCount; c++) {
@@ -183,7 +183,7 @@
 
             draw();
         }
-    }
+    };
 </script>
 
 <style>
