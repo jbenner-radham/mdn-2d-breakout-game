@@ -31,6 +31,7 @@
             const brickOffsetLeft = 30;
 
             let bricks = [];
+            let lives = 3;
             let score = 0;
 
             for (let c = 0; c < brickColumnCount; c++) {
@@ -104,12 +105,19 @@
                 ctx.fillText(`Score: ${score}`, 8, 20);
             };
 
+            const drawLives = () => {
+                ctx.font = '16px sans-serif';
+                ctx.fillStyle = '#0095dd';
+                ctx.fillText(`Lives: ${lives}`, (canvas.width - 65), 20);
+            };
+
             const draw = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 drawBricks();
                 drawBall();
                 drawPaddle();
                 drawScore();
+                drawLives();
                 collisionDetection();
 
                 if ((x + dx) > (canvas.width - ballRadius) || (x + dx) < ballRadius) {
@@ -122,8 +130,18 @@
                     if ((x > paddleX) && (x < (paddleX + paddleWidth))) {
                         dy = -dy;
                     } else {
-                        alert('GAME OVER');
-                        document.location.reload();
+                        lives--;
+
+                        if (!lives) {
+                            alert('GAME OVER');
+                            document.location.reload();
+                        } else {
+                            x = (canvas.width /2);
+                            y = (canvas.height - 30);
+                            dx = 2;
+                            dy = -2;
+                            paddleX = ((canvas.width - paddleWidth) / 2);
+                        }
                     }
                 }
 
@@ -135,6 +153,8 @@
 
                 x += dx;
                 y += dy;
+
+                requestAnimationFrame(draw);
             };
 
             document.addEventListener('keydown', (event) => {
@@ -161,7 +181,7 @@
                 }
             }, false);
 
-            setInterval(draw, 10);
+            draw();
         }
     }
 </script>
